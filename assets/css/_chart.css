@@ -1,0 +1,16 @@
+.chart {
+}
+
+#chart {
+  height: 400px !important;
+  overflow-x: auto;
+}
+
+.chart__controls {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+/* rgb(176, 47, 40), rgb(32, 61, 144) */

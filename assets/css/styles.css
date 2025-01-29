@@ -1,0 +1,44 @@
+@import './normalize.css';
+
+@import './_button.css';
+@import './_header.css';
+@import './_hero.css';
+@import './_news-card.css';
+@import './_latest-news.css';
+@import './_container.css';
+@import './_footer.css';
+@import './_news-widget.css';
+@import './_chart.css';
+@import './_section.css';
+@import './_page.css';
+
+html {
+  font-size: 16px;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  color: #21201c;
+  font-size: 1rem;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  margin: 0;
+}
+
+@media all and (max-width: 1024px) {
+  html {
+    font-size: 15px;
+  }
+}

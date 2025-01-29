@@ -1,0 +1,24 @@
+.header__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  padding: 1rem 0;
+}
+
+.header__logo {
+  max-width: 137px;
+}
+
+.header__switcher {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+@media all and (max-width: 1024px) {
+  .header__inner {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}

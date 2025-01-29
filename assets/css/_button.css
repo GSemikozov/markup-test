@@ -1,0 +1,59 @@
+.button {
+  height: 40px;
+  color: rgb(89, 89, 89);
+  border: 1px solid transparent;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.button_primary {
+  border-color: rgb(237, 237, 237);
+  background-color: rgb(237, 237, 237);
+}
+
+.button_primary:hover,
+.button_primary.button_active {
+  color: #21201c;
+  border-color: #21201c;
+}
+
+.button_secondary {
+  border-color: rgb(25, 25, 25);
+  background-color: rgb(25, 25, 25);
+  color: rgb(250, 250, 250);
+  transition: opacity 0.3s linear;
+}
+
+.button_secondary:hover,
+.button_secondary.button_active {
+  opacity: 0.9;
+}
+
+.button_alternate {
+  border-color: rgb(250, 250, 250);
+  background-color: rgb(250, 250, 250);
+  color: rgb(32, 32, 32);
+  transition: opacity 0.3s linear;
+}
+
+.button_alternate:hover,
+.button_alternate.button_active {
+  opacity: 0.7;
+}
+
+.button_icon {
+  width: 40px;
+  padding: 0.5rem;
+}
+
+.button_small {
+  height: 36px;
+}
+
+.button_icon.button_small {
+  width: 36px;
+}
