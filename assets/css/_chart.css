@@ -1,19 +1,8 @@
-.chart {
-}
-
-#chart {
-  height: 400px !important;
-  overflow-x: auto;
-}
-
 .chart__controls {
   display: flex;
   align-items: center;
   gap: 0.5rem;
   margin-bottom: 1.5rem;
-}
-
-.chart__legend-container {
 }
 
 .chart__custom-legend {

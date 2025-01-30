@@ -23,73 +23,96 @@ document.addEventListener('DOMContentLoaded', function () {
 
   toggleSection(true);
 
-  // График
+  // Chart
   const ctx = document.getElementById('chart').getContext('2d');
   const selectedMonth = document.getElementById('selectedMonth');
   const prevMonthBtn = document.getElementById('prevMonth');
   const nextMonthBtn = document.getElementById('nextMonth');
 
   const today = new Date();
+  const currentYear = today.getFullYear();
   const currentDay = today.getDate();
 
   const months = [
+    `Jan, ${currentDay}`,
+    `Feb, ${currentDay}`,
+    `Mar, ${currentDay}`,
+    `Apr, ${currentDay}`,
+    `May, ${currentDay}`,
+    `Jun, ${currentDay}`,
+    `Jul, ${currentDay}`,
     `Aug, ${currentDay}`,
     `Sep, ${currentDay}`,
     `Oct, ${currentDay}`,
     `Nov, ${currentDay}`,
     `Dec, ${currentDay}`,
   ];
-  let currentMonthIndex = 1;
 
-  function generateRandomData() {
-    return Array.from({ length: 30 }, () => Math.floor(Math.random() * 1000));
+  let currentMonthIndex = today.getMonth();
+
+  function getDaysInMonth(monthIndex, year = currentYear) {
+    return new Date(year, monthIndex + 1, 0).getDate();
   }
 
-  let chartData = {
-    labels: Array.from(
-      { length: 30 },
+  function generateRandomData(days, min = 0, max = 1) {
+    return Array.from({ length: days }, () => (Math.random() * (max - min) + min).toFixed(2));
+  }
+
+  function updateChart() {
+    const daysInMonth = getDaysInMonth(currentMonthIndex, currentYear);
+
+    selectedMonth.textContent = `${months[currentMonthIndex].split(',')[0]}, ${currentDay}`;
+
+    chart.data.labels = Array.from(
+      { length: daysInMonth },
       (_, i) => `${i + 1} ${months[currentMonthIndex].split(',')[0]}`
-    ),
-    datasets: [
-      {
-        label: 'Day Usage',
-        borderColor: 'rgb(176, 47, 40)',
-        data: generateRandomData(),
-        fill: false,
-      },
-      {
-        label: 'Night Usage',
-        borderColor: 'rgb(32, 61, 144)',
-        data: generateRandomData(),
-        fill: false,
-      },
-    ],
-  };
+    );
+
+    chart.data.datasets[0].data = generateRandomData(daysInMonth, 0.1, 1.0);
+    chart.data.datasets[1].data = generateRandomData(daysInMonth, 0.05, 0.5);
+
+    chart.update();
+  }
 
   const chart = new Chart(ctx, {
     type: 'line',
-    data: chartData,
+    data: {
+      labels: [],
+      datasets: [
+        {
+          label: 'Day Usage',
+          borderColor: 'rgb(176, 47, 40)',
+          data: [],
+          fill: false,
+        },
+        {
+          label: 'Night Usage',
+          borderColor: 'rgb(32, 61, 144)',
+          data: [],
+          fill: false,
+        },
+      ],
+    },
     options: {
       responsive: true,
-      maintainAspectRatio: false,
+      maintainAspectRatio: true,
       plugins: {
         legend: {
           display: false,
         },
       },
+      scales: {
+        y: {
+          min: 0,
+          max: 1,
+          ticks: {
+            stepSize: 0.1,
+            callback: (value) => `${value} TB`,
+          },
+        },
+      },
     },
   });
-
-  function updateChart() {
-    selectedMonth.textContent = months[currentMonthIndex];
-    chart.data.labels = Array.from(
-      { length: 30 },
-      (_, i) => `${i + 1} ${months[currentMonthIndex].split(',')[0]}`
-    );
-    chart.data.datasets[0].data = generateRandomData();
-    chart.data.datasets[1].data = generateRandomData();
-    chart.update();
-  }
 
   prevMonthBtn.addEventListener('click', () => {
     if (currentMonthIndex > 0) {
