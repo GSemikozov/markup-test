@@ -11,6 +11,8 @@
 .news-card__image {
   width: 100%;
   border-radius: 8px;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
 }
 
 .news-card__title {
