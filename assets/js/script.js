@@ -109,8 +109,14 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 document.getElementById('legendContainer').innerHTML = `
-    <div class="custom-legend">
-        <div class="legend-item"><span class="legend-box" style="background: red;"></span> 📈 Day usage</div>
-        <div class="chart__legend-item"><span class="chart__legend-box" style="background: blue;"></span> 🌙 Night usage</div>
+    <div class="chart__custom-legend">
+        <div class="chart__legend-item">
+          <div class="chart__legend-title">Chart 1</div>
+          <div class="chart__legend-data chart__legend-data_blue">136 GB</div>
+        </div>
+        <div class="chart__legend-item">
+          <div class="chart__legend-title">Chart 2</div>
+          <div class="chart__legend-data chart__legend-data_red">42 GB</div>
+        </div>
     </div>
 `;

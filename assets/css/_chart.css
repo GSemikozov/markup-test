@@ -13,4 +13,36 @@
   margin-bottom: 1.5rem;
 }
 
-/* rgb(176, 47, 40), rgb(32, 61, 144) */
+.chart__legend-container {
+}
+
+.chart__custom-legend {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.chart__legend-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.chart__legend-title {
+  color: rgb(173, 173, 173);
+  font-size: 0.9rem;
+}
+
+.chart__legend-data {
+  color: rgb(173, 173, 173);
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.chart__legend-data_blue {
+  color: rgb(32, 61, 144);
+}
+
+.chart__legend-data_red {
+  color: rgb(176, 47, 40);
+}

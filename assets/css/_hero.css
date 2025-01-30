@@ -7,7 +7,6 @@
 
 .hero__image-container {
   position: relative;
-  background: #000;
   border-radius: 12px;
   overflow: hidden;
 }
@@ -25,7 +24,7 @@
   left: 0;
   right: 0;
   background: rgba(0, 0, 0, 0.6);
-  color: white;
+  color: #fff;
   padding: 3rem;
   display: flex;
   flex-direction: column;
