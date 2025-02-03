@@ -35,3 +35,15 @@
 .chart__legend-data_red {
   color: rgb(176, 47, 40);
 }
+
+.chart__container {
+  max-width: calc(100vw - 30px);
+  overflow-x: auto;
+}
+
+.chart__wrapper {
+  height: 400px;
+  width: 100%;
+  min-width: 800px;
+  position: relative;
+}

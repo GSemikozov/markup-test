@@ -95,7 +95,7 @@ document.addEventListener('DOMContentLoaded', function () {
     },
     options: {
       responsive: true,
-      maintainAspectRatio: true,
+      maintainAspectRatio: false,
       plugins: {
         legend: {
           display: false,
@@ -108,6 +108,11 @@ document.addEventListener('DOMContentLoaded', function () {
           ticks: {
             stepSize: 0.1,
             callback: (value) => `${value} TB`,
+          },
+        },
+        x: {
+          grid: {
+            display: false,
           },
         },
       },
