@@ -8,7 +8,7 @@
 }
 
 .news-widget__title {
-  font-size: 1.5rem;
+  font-size: 1.4rem;
   color: rgb(25, 25, 25);
   display: -webkit-box;
   -webkit-box-orient: vertical;
@@ -20,12 +20,12 @@
 }
 
 .news-widget__description {
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   color: rgb(89, 89, 89);
   display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
-  line-clamp: 1;
+  line-clamp: 2;
   overflow: hidden;
   text-overflow: ellipsis;
   min-width: 1px;

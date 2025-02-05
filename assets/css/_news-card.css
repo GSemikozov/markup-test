@@ -18,9 +18,10 @@
 .news-card__title {
   font-size: 1rem;
   font-weight: 600;
+  display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
-  line-clamp: 1;
+  line-clamp: 2;
   overflow: hidden;
   text-overflow: ellipsis;
   min-width: 1px;
@@ -29,9 +30,10 @@
 .news-card__description {
   font-size: 0.9rem;
   color: #555;
+  display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
-  line-clamp: 1;
+  line-clamp: 2;
   overflow: hidden;
   text-overflow: ellipsis;
   min-width: 1px;

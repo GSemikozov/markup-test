@@ -80,7 +80,7 @@
         </div>
       </header>
 
-      <main>
+      <main class="page__main">
         <!-- News -->
         <section class="section" id="newsSection">
           <div class="container">
@@ -162,30 +162,34 @@
               </div>
               <div class="news__widget news-widget">
                 <a href="news.html" class="news-widget__item">
-                  <h4 class="news-widget__title">World's largest coral found in</h4>
+                  <h4 class="news-widget__title">World's largest coral found somewhere</h4>
                   <p class="news-widget__description">
                     The coral could be 500 years old and is bigger than a blue whale, scientists say
+                    and some
                   </p>
                   <div class="news-widget__meta">2 hrs ago | Climate</div>
                 </a>
                 <a href="news.html" class="news-widget__item">
-                  <h4 class="news-widget__title">World's largest coral found in</h4>
+                  <h4 class="news-widget__title">World's largest coral found somewhere</h4>
                   <p class="news-widget__description">
                     The coral could be 500 years old and is bigger than a blue whale, scientists say
+                    and some
                   </p>
                   <div class="news-widget__meta">2 hrs ago | Climate</div>
                 </a>
                 <a href="news.html" class="news-widget__item">
-                  <h4 class="news-widget__title">World's largest coral found in</h4>
+                  <h4 class="news-widget__title">World's largest coral found somewhere</h4>
                   <p class="news-widget__description">
                     The coral could be 500 years old and is bigger than a blue whale, scientists say
+                    and some
                   </p>
                   <div class="news-widget__meta">2 hrs ago | Climate</div>
                 </a>
                 <a href="news.html" class="news-widget__item">
-                  <h4 class="news-widget__title">World's largest coral found in</h4>
+                  <h4 class="news-widget__title">World's largest coral found somewhere</h4>
                   <p class="news-widget__description">
                     The coral could be 500 years old and is bigger than a blue whale, scientists say
+                    and some
                   </p>
                   <div class="news-widget__meta">2 hrs ago | Climate</div>
                 </a>
@@ -198,7 +202,8 @@
             <h3 class="section__title">Latest News</h3>
             <div class="latest-news">
               <div class="latest-news__grid">
-                <a href="news.html" class="news-card">
+                <!-- static data -->
+                <!-- <a href="news.html" class="news-card">
                   <article class="news-card__body">
                     <img
                       src="https://placehold.co/300x200"
@@ -259,10 +264,15 @@
                     </p>
                     <div class="news-card__meta">15 hrs ago | London</div>
                   </article>
-                </a>
+                </a> -->
+              </div>
+              <div class="latest-news__grid" id="newsContainer">
+                <!-- load dynamically from server -->
               </div>
               <div class="latest-news__load-more">
-                <button class="button button_secondary button_small">Read More</button>
+                <button class="button button_secondary button_small" id="loadMoreBtn">
+                  Read More
+                </button>
               </div>
             </div>
           </div>
@@ -307,10 +317,10 @@
                     </g>
                   </svg>
                 </button>
-                <button
-                  id="selectedMonth"
-                  class="chart__selected-range button button_primary button_small"
-                ></button>
+                <div class="chart__month-container">
+                  <div class="chart__months-wrapper"></div>
+                  <!-- Btns adds dynamically -->
+                </div>
                 <button
                   id="nextMonth"
                   class="chart__control button button_secondary button_icon button_small"

@@ -18,37 +18,109 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   }
 
+  // News
+  const newsContainer = document.getElementById('newsContainer');
+  const loadMoreBtn = document.getElementById('loadMoreBtn');
+
+  const API_URL = 'https://jsonplaceholder.typicode.com/posts';
+  const NEWS_PER_PAGE = 8;
+  let allNews = [];
+  let currentIndex = 0;
+
+  async function fetchNews() {
+    try {
+      const response = await fetch(API_URL);
+      if (!response.ok) throw new Error('Ошибка загрузки данных');
+      allNews = await response.json();
+      renderNews();
+    } catch (error) {
+      console.error('Ошибка загрузки новостей:', error);
+    }
+  }
+
+  function renderNews() {
+    const newsToRender = allNews.slice(currentIndex, currentIndex + NEWS_PER_PAGE);
+    newsToRender.forEach((news) => {
+      const newsCard = document.createElement('div');
+      newsCard.classList.add('news-card');
+      newsCard.innerHTML = `
+                <a href="news.html" class="news-card">
+                  <article class="news-card__body">
+                    <img
+                      src="https://placehold.co/300x200"
+                      alt="news ${news.id}"
+                      class="news-card__image"
+                    />
+                    <h3 class="news-card__title">
+                      ${news.title}
+                    </h3>
+                    <p class="news-card__description">
+                      ${news.body}
+                    </p>
+                    <div class="news-card__meta">1 day ago | Culture</div>
+                  </article>
+                </a>
+            `;
+      newsContainer.appendChild(newsCard);
+    });
+
+    currentIndex += NEWS_PER_PAGE;
+
+    if (currentIndex >= allNews.length) {
+      loadMoreBtn.style.display = 'none';
+    }
+  }
+
   btnNews.addEventListener('click', () => toggleSection(true));
   btnCharts.addEventListener('click', () => toggleSection(false));
+  loadMoreBtn.addEventListener('click', renderNews);
 
   toggleSection(true);
+  fetchNews();
 
   // Chart
   const ctx = document.getElementById('chart').getContext('2d');
-  const selectedMonth = document.getElementById('selectedMonth');
+  const monthsWrapper = document.querySelector('.chart__months-wrapper');
+  const monthContainer = document.querySelector('.chart__month-container');
   const prevMonthBtn = document.getElementById('prevMonth');
   const nextMonthBtn = document.getElementById('nextMonth');
 
   const today = new Date();
   const currentYear = today.getFullYear();
   const currentDay = today.getDate();
+  let currentMonthIndex = today.getMonth();
 
   const months = [
-    `Jan, ${currentDay}`,
-    `Feb, ${currentDay}`,
-    `Mar, ${currentDay}`,
-    `Apr, ${currentDay}`,
-    `May, ${currentDay}`,
-    `Jun, ${currentDay}`,
-    `Jul, ${currentDay}`,
-    `Aug, ${currentDay}`,
-    `Sep, ${currentDay}`,
-    `Oct, ${currentDay}`,
-    `Nov, ${currentDay}`,
-    `Dec, ${currentDay}`,
+    'Jan',
+    'Feb',
+    'Mar',
+    'Apr',
+    'May',
+    'Jun',
+    'Jul',
+    'Aug',
+    'Sep',
+    'Oct',
+    'Nov',
+    'Dec',
   ];
 
-  let currentMonthIndex = today.getMonth();
+  months.forEach((month, index) => {
+    const btn = document.createElement('button');
+    btn.classList.add('chart__selected-range', 'button', 'button_primary', 'button_small');
+    btn.textContent = `${month}, ${currentDay}`;
+    btn.dataset.month = index;
+    if (index === currentMonthIndex) {
+      btn.classList.add('chart__selected-range_selected');
+    }
+    btn.addEventListener('click', () => {
+      currentMonthIndex = index;
+      updateChart(index);
+    });
+    monthsWrapper.appendChild(btn);
+  });
+
+  const monthButtons = document.querySelectorAll('.chart__selected-range');
 
   function getDaysInMonth(monthIndex, year = currentYear) {
     return new Date(year, monthIndex + 1, 0).getDate();
@@ -58,10 +130,13 @@ document.addEventListener('DOMContentLoaded', function () {
     return Array.from({ length: days }, () => (Math.random() * (max - min) + min).toFixed(2));
   }
 
-  function updateChart() {
-    const daysInMonth = getDaysInMonth(currentMonthIndex, currentYear);
+  function updateChart(currentMonthIndex) {
+    document
+      .querySelector('.chart__selected-range_selected')
+      ?.classList.remove('chart__selected-range_selected');
+    monthButtons[currentMonthIndex].classList.add('chart__selected-range_selected');
 
-    selectedMonth.textContent = `${months[currentMonthIndex].split(',')[0]}, ${currentDay}`;
+    const daysInMonth = getDaysInMonth(currentMonthIndex, currentYear);
 
     chart.data.labels = Array.from(
       { length: daysInMonth },
@@ -72,6 +147,71 @@ document.addEventListener('DOMContentLoaded', function () {
     chart.data.datasets[1].data = generateRandomData(daysInMonth, 0.05, 0.5);
 
     chart.update();
+  }
+
+  function selectMonth(index) {
+    if (index < 0 || index > 11) return;
+    currentMonthIndex = index;
+
+    document
+      .querySelector('.chart__selected-range_selected')
+      ?.classList.remove('chart__selected-range_selected');
+    monthButtons[index].classList.add('chart__selected-range_selected');
+
+    updateChart(index);
+    ensureVisible(index);
+    updateArrowState();
+  }
+
+  function shiftMonth(direction) {
+    if (direction === 'next' && currentMonthIndex < 11) {
+      selectMonth(currentMonthIndex + 1);
+    } else if (direction === 'prev' && currentMonthIndex > 0) {
+      selectMonth(currentMonthIndex - 1);
+    }
+  }
+
+  function ensureVisible(index) {
+    const button = monthButtons[index];
+    button.scrollIntoView({
+      behavior: 'smooth',
+      block: 'nearest',
+      inline: 'center',
+    });
+  }
+
+  function findNearestVisibleMonth() {
+    const containerRect = monthContainer.getBoundingClientRect();
+    let newIndex = currentMonthIndex;
+
+    if (!isMonthVisible(currentMonthIndex)) {
+      for (let i = 1; i < months.length; i++) {
+        if (currentMonthIndex - i >= 0 && isMonthVisible(currentMonthIndex - i)) {
+          newIndex = currentMonthIndex - i;
+          break;
+        }
+        if (currentMonthIndex + i <= 11 && isMonthVisible(currentMonthIndex + i)) {
+          newIndex = currentMonthIndex + i;
+          break;
+        }
+      }
+    }
+
+    if (newIndex !== currentMonthIndex) {
+      selectMonth(newIndex);
+    }
+  }
+
+  function isMonthVisible(index) {
+    const button = monthButtons[index];
+    const containerRect = monthContainer.getBoundingClientRect();
+    const buttonRect = button.getBoundingClientRect();
+    return buttonRect.left >= containerRect.left && buttonRect.right <= containerRect.right;
+  }
+
+  function updateArrowState() {
+    prevMonthBtn.disabled = currentMonthIndex === 0;
+    nextMonthBtn.disabled = currentMonthIndex === 11;
   }
 
   const chart = new Chart(ctx, {
@@ -119,21 +259,16 @@ document.addEventListener('DOMContentLoaded', function () {
     },
   });
 
-  prevMonthBtn.addEventListener('click', () => {
-    if (currentMonthIndex > 0) {
-      currentMonthIndex--;
-      updateChart();
-    }
-  });
+  prevMonthBtn.addEventListener('click', () => shiftMonth('prev'));
+  nextMonthBtn.addEventListener('click', () => shiftMonth('next'));
 
-  nextMonthBtn.addEventListener('click', () => {
-    if (currentMonthIndex < months.length - 1) {
-      currentMonthIndex++;
-      updateChart();
-    }
+  const resizeObserver = new ResizeObserver(() => {
+    findNearestVisibleMonth();
   });
+  resizeObserver.observe(monthContainer);
 
-  updateChart();
+  selectMonth(currentMonthIndex);
+  updateArrowState();
 });
 
 document.getElementById('legendContainer').innerHTML = `

@@ -42,3 +42,52 @@ p {
     font-size: 15px;
   }
 }
+
+.month-switcher {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  width: 100%;
+}
+
+.arrow-btn {
+  padding: 10px;
+  font-size: 18px;
+  background: black;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.month-container {
+  flex: 1;
+  overflow-x: auto; /* ✅ Горизонтальный скролл */
+  white-space: nowrap; /* ✅ Запрещаем перенос строк */
+  display: flex;
+  scroll-behavior: smooth;
+}
+
+.months-wrapper {
+  display: flex;
+  gap: 5px;
+}
+
+.month-btn {
+  padding: 5px 10px;
+  background: lightgray;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  min-width: 50px;
+}
+
+.month-btn.is-selected {
+  background: black;
+  color: white;
+  font-weight: bold;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}

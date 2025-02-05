@@ -1,6 +1,7 @@
 .chart__controls {
   display: flex;
   align-items: center;
+  width: 100%;
   gap: 0.5rem;
   margin-bottom: 1.5rem;
 }
@@ -46,4 +47,23 @@
   width: 100%;
   min-width: 800px;
   position: relative;
+}
+
+.chart__month-container {
+  flex: 1;
+  overflow: hidden auto;
+  white-space: nowrap;
+  display: flex;
+  scroll-behavior: smooth;
+  min-width: 0;
+}
+
+.chart__months-wrapper {
+  display: flex;
+  gap: 5px;
+}
+
+.chart__selected-range_selected {
+  border-color: #21201c;
+  color: #21201c;
 }
